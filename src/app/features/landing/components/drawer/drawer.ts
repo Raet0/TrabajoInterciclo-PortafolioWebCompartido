@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ThemeSwitcher } from "../theme-switcher/theme-switcher";
-
+import { RouterLink, RouterLinkActive } from "@angular/router";
+import { ThemeSwitcher } from '../theme-switcher/theme-switcher';
 @Component({
   selector: 'app-drawer',
-  imports: [ThemeSwitcher],
+  imports: [ThemeSwitcher, RouterLink, RouterLinkActive],
   templateUrl: './drawer.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
