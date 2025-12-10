@@ -1,33 +1,37 @@
-<div class="flex justify-center items-center min-h-screen bg-[#e0e5ec] text-[#4a4a4a] font-sans">
-  
-  <div class="bg-[#e0e5ec] p-12 rounded-[40px] w-full max-w-[400px] text-center shadow-[14px_14px_28px_#a3b1c6,-14px_-14px_28px_#ffffff]">
+<main>
+  <app-drawer></app-drawer>
+  <div class="flex justify-center items-center min-h-screen bg-base-200 font-sans transition-colors duration-300">
     
-    <h2 class="text-3xl font-bold mb-8 text-gray-700">Login Form</h2>
-    
-    <div class="mb-5">
-      <input 
-        class="w-full p-4 border-none rounded-[50px] bg-[#e0e5ec] outline-none text-sm placeholder-gray-500 shadow-[inset_6px_6px_10px_#a3b1c6,inset_-6px_-6px_10px_#ffffff] focus:shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff] transition-all" 
-        type="email" 
-        placeholder="Email or Phone">
-    </div>
+    <div class="card bg-base-100 p-12 rounded-[40px] w-full max-w-[400px] text-center shadow-xl">
 
-    <div class="mb-8">
-      <input 
-        class="w-full p-4 border-none rounded-[50px] bg-[#e0e5ec] outline-none text-sm placeholder-gray-500 shadow-[inset_6px_6px_10px_#a3b1c6,inset_-6px_-6px_10px_#ffffff] focus:shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff] transition-all" 
-        type="password" 
-        placeholder="Password">
-    </div>
-    
-    <button class="w-full py-4 mb-8 rounded-[50px] bg-[#e0e5ec] text-[#4a4a4a] font-bold tracking-wide uppercase shadow-[6px_6px_10px_#a3b1c6,-6px_-6px_10px_#ffffff] hover:shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff] active:shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff] active:translate-y-[2px] transition-all cursor-pointer">
-      Sign in
-    </button>
-    
-    <div class="text-sm text-gray-600">
-      <p class="inline">Not a member? </p>
-      <a  routerLink="register" class="font-bold text-blue-500 hover:text-blue-600 cursor-pointer no-underlin">
-        Signup now
-      </a>
-    </div>
+      <h2 class="text-3xl font-bold mb-8 text-base-content">Login Form</h2>
 
+      <div class="mb-5">
+        <input
+          class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
+          type="email" 
+          placeholder="Email or Phone">
+      </div>
+
+      <div class="mb-8">
+        <input
+          class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
+          type="password" 
+          placeholder="Password">
+      </div>
+
+      <button
+        class="btn w-full py-4 mb-8 rounded-[50px] bg-base-300 text-base-content font-bold tracking-wide uppercase hover:bg-base-content hover:text-base-100 border-none shadow-lg transition-all cursor-pointer h-auto min-h-[3rem]">
+        Sign in
+      </button>
+
+      <div class="text-sm text-base-content/70">
+        <p class="inline">Not a member? </p>
+        <a routerLink="/register" class="link link-primary font-bold no-underline hover:text-primary-focus cursor-pointer">
+          Signup now
+        </a>
+      </div>
+
+    </div>
   </div>
-</div>
+</main>
