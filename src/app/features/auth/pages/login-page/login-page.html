@@ -1,30 +1,54 @@
 <main>
   <app-drawer></app-drawer>
+  
   <div class="flex justify-center items-center min-h-screen bg-base-200 font-sans transition-colors duration-300">
     
     <div class="card bg-base-100 p-12 rounded-[40px] w-full max-w-[400px] text-center shadow-xl">
 
       <h2 class="text-3xl font-bold mb-8 text-base-content">Login Form</h2>
 
-      <div class="mb-5">
-        <input
-          class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
-          type="email" 
-          placeholder="Email or Phone">
-      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <div class="mb-8">
-        <input
-          class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
-          type="password" 
-          placeholder="Password">
-      </div>
+        <div class="mb-5 text-left">
+          <input
+            formControlName="email"
+            class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
+            [class.input-error]="email?.invalid && email?.touched"
+            type="email" 
+            placeholder="Email or Phone">
 
-      <button
-        class="btn w-full py-4 mb-8 rounded-[50px] bg-base-300 text-base-content font-bold tracking-wide uppercase hover:bg-base-content hover:text-base-100 border-none shadow-lg transition-all cursor-pointer h-auto min-h-[3rem]">
-        Sign in
-      </button>
+          @if (email?.invalid && email?.touched) {
+            <span class="text-error text-xs ml-4 mt-1 block">
+              @if (email?.hasError('required')) { El correo es obligatorio }
+              @if (email?.hasError('email')) { Formato de correo inválido }
+            </span>
+          }
+        </div>
 
+        <div class="mb-8 text-left">
+          <input
+            formControlName="password"
+            class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
+            [class.input-error]="password?.invalid && password?.touched"
+            type="password" 
+            placeholder="Password">
+
+          @if (password?.invalid && password?.touched) {
+            <span class="text-error text-xs ml-4 mt-1 block">
+              @if (password?.hasError('required')) { La contraseña es obligatoria }
+              @if (password?.hasError('minlength')) { Mínimo 6 caracteres }
+            </span>
+          }
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="btn w-full py-4 mb-8 rounded-[50px] bg-base-300 text-base-content font-bold tracking-wide uppercase hover:bg-base-content hover:text-base-100 border-none shadow-lg transition-all cursor-pointer h-auto min-h-[3rem] disabled:opacity-50 disabled:cursor-not-allowed">
+          Sign in
+        </button>
+
+      </form>
       <div class="text-sm text-base-content/70">
         <p class="inline">Not a member? </p>
         <a routerLink="/register" class="link link-primary font-bold no-underline hover:text-primary-focus cursor-pointer">
@@ -34,4 +58,5 @@
 
     </div>
   </div>
+  <footer-pro></footer-pro>
 </main>

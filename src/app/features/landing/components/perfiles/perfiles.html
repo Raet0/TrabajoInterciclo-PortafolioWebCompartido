@@ -1,24 +1,43 @@
-<div class=" hero min-h-scrren">
-  <div class="hero-content text-neutral-content text-center">
+<main>
+
+  <div class="min-h-screen flex items-center justify-center">
     <div class="max-w-md">
-      <h2 class="mb-5 text-5xl font-bold">Perfiles</h2>
-      <p class="mb-5">Aqui puedes los perfiles de los integrante del
-        grupo y respectivamente podras ir a revisar el portafolio de cada uno.
+      <h2 class="mb-5 text-4xl font-bold text-center">Profiles</h2>
+      <p class="mb-5 text-2xl text-center">
+        Learn more about our employees and see which one is best suited to help you find a solution to your problem.
       </p>
+
     </div>
   </div>
-</div>
-<section id="profiles" class="w-full py-20">
+
+
+</main>
+
+<section id="profiles" class="w-full py-12 bg-base-100">
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 place-items-center">
-    
+
     <!-- Perfil 1 -->
     <div class="flex flex-col items-center text-center">
-      <img
-        src="assets/perfil1.jpg"
-        class="w-56 h-56 object-cover rounded-full shadow-lg"
-      />
-      <p class="text-gray-600 mt-4 text-lg">Hello, I'm</p>
-      <h2 class="text-4xl font-bold">Rafael Prieto</h2>
+      <!-- Flip Card -->
+      <div class="group w-56 h-56 [perspective:1000px]">
+        <div
+          class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+          <!-- Front -->
+          <div class="absolute w-full h-full [backface-visibility:hidden]">
+            <img src="/assets/images/Rafael-Profile.jpg" alt="rafael"
+              class="w-56 h-56 object-cover rounded-full shadow-lg" />
+          </div>
+          <!-- Back -->
+          <div
+            class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center p-6 shadow-lg">
+            <p class="text-sm font-semibold">Hola mi nombre es Rafael y soy desarrollador full-stack, tengo
+              22 años y me apaciona tomar retos y resolverlos.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-600 mt-6 text-lg">Hello, I'm</p>
+      <h2 class="text-2xl font-bold ">Rafael Prieto</h2>
       <p class="text-xl text-gray-500 mb-6">Student</p>
 
       <div class="flex gap-4">
@@ -27,29 +46,43 @@
       </div>
 
       <div class="flex gap-4 mt-6">
-        <a href="#"><i class="fa-brands fa-linkedin text-3xl"></i></a>
-        <a href="#"><i class="fa-brands fa-github text-3xl"></i></a>
+        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin text-3xl"></i></a>
+        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-github text-3xl"></i></a>
       </div>
     </div>
 
     <!-- Perfil 2 -->
     <div class="flex flex-col items-center text-center">
-      <img
-        src="assets/perfil2.jpg"
-        class="w-56 h-56 object-cover rounded-full shadow-lg"
-      />
-      <p class="text-gray-600 mt-4 text-lg">Hello, I'm</p>
-      <h2 class="text-4xl font-bold">Adrian Lazo</h2>
+      <!-- Flip Card -->
+      <div class="group w-56 h-56 [perspective:1000px]">
+        <div
+          class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+          <!-- Front -->
+          <div class="absolute w-full h-full [backface-visibility:hidden]">
+            <img src="/assets/images/Adrian-Profile.png" alt="Adrian"
+              class="w-56 h-56 object-cover rounded-full shadow-lg" />
+          </div>
+          <!-- Back -->
+          <div
+            class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center p-6 shadow-lg">
+            <p class="text-sm font-semibold">Hola mi nombre es Adrian tengo 26 años, soy apasionado por el desarrollo
+              web y la innovación tecnológica.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-600 mt-6 text-lg">Hello, I'm</p>
+      <h2 class="text-2xl font-bold ">Adrian Lazo</h2>
       <p class="text-xl text-gray-500 mb-6">Student</p>
 
       <div class="flex gap-4">
         <button class="btn btn-outline">Download CV</button>
-        <button class="btn btn-neutral" >Contact Info</button>
+        <button class="btn btn-neutral">Contact Info</button>
       </div>
 
       <div class="flex gap-4 mt-6">
-        <a href="#"><i class="fa-brands fa-linkedin text-3xl"></i></a>
-        <a href="#"><i class="fa-brands fa-github text-3xl"></i></a>
+        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin text-3xl"></i></a>
+        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-github text-3xl"></i></a>
       </div>
     </div>
 

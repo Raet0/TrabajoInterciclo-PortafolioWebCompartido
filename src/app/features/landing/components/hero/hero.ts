@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'hero-pro',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './hero.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero {
-  scrollToPerfiles(){
+  scrollToPerfiles() {
     const perfilesSection = document.getElementById('perfiles');
-    if (perfilesSection){
-      perfilesSection.scrollIntoView({behavior: 'smooth'});
+    if (perfilesSection) {
+      perfilesSection.scrollIntoView({ behavior: 'smooth' });
     }
   }
- }
+}

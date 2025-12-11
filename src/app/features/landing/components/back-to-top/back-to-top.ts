@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, HostListener, signal } from '@angul
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackToTop {
-    // Signal que controla la visibilidad del botón
+  // Signal que controla la visibilidad del botón
   isVisible = signal(false);
 
   // Detecta el desplazamiento vertical para mostrar el botón
@@ -20,4 +20,4 @@ export class BackToTop {
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
- }
+}
