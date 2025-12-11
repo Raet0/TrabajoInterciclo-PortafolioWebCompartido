@@ -16,7 +16,7 @@ export class Auth {
 
   constructor() {
     // Suscribirse a cambios en el estado de autenticación
-    this.user$.subscribe(user => {
+    this.user$.subscribe((user: User | null) => {
       this.currentUser.set(user);
     });
   }

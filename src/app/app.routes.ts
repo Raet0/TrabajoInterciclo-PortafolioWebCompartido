@@ -5,11 +5,14 @@ import { RafaelProfile } from './features/rafael-profile/pages/rafael-profile/ra
 import { AdrianProfile } from './features/adrian-profile/pages/adrian-profile/adrian-profile';
 import { LoginPage } from './features/auth/pages/login-page/login-page';
 import { RegisterPage } from './features/auth/pages/register-page/register-page';
+import { ProgramadorPageComponent } from './pages/programador-page/programador-page';
+import { UsuarioPageComponent } from './pages/user-page/user-page';
+import { AdminPageComponent } from './pages/admin-page/admin-page';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Landing 
+    component: Landing
   },
   {
     path:'perfiles',
@@ -30,5 +33,17 @@ export const routes: Routes = [
   {
     path:'adrian',
     component: AdrianProfile
+  },
+  {
+    path:'programmer',
+    component: ProgramadorPageComponent
+  },
+  {
+    path:'user',
+    component: UsuarioPageComponent
+  },
+  {
+    path:'admin',
+    component: AdminPageComponent
   },
 ];

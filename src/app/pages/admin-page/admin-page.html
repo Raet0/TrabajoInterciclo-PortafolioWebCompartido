@@ -1,0 +1,51 @@
+<section class="max-w-5xl mx-auto px-4 py-20">
+
+  <h1 class="text-4xl font-bold mb-10">Panel del Administrador</h1>
+
+  <!-- Formulario -->
+  <div class="border rounded-xl p-6 shadow-sm mb-14">
+    <h2 class="text-3xl font-semibold mb-6">
+      @if (editingId()) { Editar Programador } @else { Crear Programador }
+    </h2>
+
+    <form (submit)="$event.preventDefault(); addOrUpdate()" class="grid gap-4">
+      <input class="border px-4 py-2 rounded-lg" placeholder="Nombre" [(ngModel)]="form().nombre" name="nombre" />
+
+      <input class="border px-4 py-2 rounded-lg" placeholder="Especialidad" [(ngModel)]="form().especialidad" name="esp" />
+
+      <textarea class="border px-4 py-2 rounded-lg" placeholder="Descripción" [(ngModel)]="form().descripcion"></textarea>
+
+      <div class="flex gap-4 mt-4">
+        <button class="px-4 py-2 bg-orange-500 text-white rounded-lg">
+          @if (editingId()) { Guardar Cambios } @else { Crear }
+        </button>
+
+        @if (editingId()) {
+          <button type="button" class="px-4 py-2 border border-gray-400 rounded-lg" (click)="cancelEdit()">Cancelar</button>
+        }
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista -->
+  <h2 class="text-3xl font-semibold mb-6">Programadores Registrados</h2>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    @for (p of programadores(); track p.id) {
+      <div class="border rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-xl font-bold">{{ p.nombre }}</h3>
+        <p class="text-orange-500 font-semibold">{{ p.especialidad }}</p>
+
+        <p class="text-gray-600 mt-2">{{ p.descripcion }}</p>
+
+        <div class="flex gap-4 mt-4">
+          <button class="px-3 py-2 bg-orange-500 text-white rounded-lg" (click)="edit(p)">Editar</button>
+          <button class="px-3 py-2 bg-red-500 text-white rounded-lg" (click)="remove(p.id)">Eliminar</button>
+        </div>
+      </div>
+    } @empty {
+      <p class="text-gray-500">No hay programadores registrados.</p>
+    }
+  </div>
+
+</section>
