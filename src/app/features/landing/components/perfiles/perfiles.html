@@ -1,90 +1,84 @@
-<main>
-
-  <div class="min-h-screen flex items-center justify-center">
-    <div class="max-w-md">
-      <h2 class="mb-5 text-4xl font-bold text-center">Profiles</h2>
+<main class="bg-base-100">
+  <!-- Hero Section -->
+  <div class="w-full py-16 flex items-center justify-center">
+    <div class="max-w-2xl px-4">
+      <h2 class="mb-4 text-5xl font-bold text-center" id="perfiles">Profiles</h2>
       <p class="mb-5 text-2xl text-center">
         Learn more about our employees and see which one is best suited to help you find a solution to your problem.
       </p>
-
     </div>
   </div>
 
+  <!-- Profiles Section -->
+  <section id="profiles" class="w-full py-16 bg-base-100">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 place-items-center">
 
+        <!-- Perfil 1 -->
+        <div class="flex flex-col items-center text-center">
+          <!-- Flip Card -->
+          <div class="group w-56 h-56 [perspective:1000px]">
+            <div class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              <!-- Front -->
+              <div class="absolute w-full h-full [backface-visibility:hidden]">
+                <img src="https://i.pinimg.com/736x/72/db/55/72db55d5aef7919d09219609dc00a95a.jpg" alt="rafael"
+                  class="w-56 h-56 object-cover rounded-full shadow-lg" />
+              </div>
+              <!-- Back -->
+              <div class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-base-300 dark:bg-base-700 rounded-full flex items-center justify-center p-6 shadow-lg">
+                <p class="text-base-content text-sm font-semibold">Hola mi nombre es Rafael y soy desarrollador full-stack, tengo 22 años y me apasiona tomar retos y resolverlos.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-gray-600 dark:text-gray-400 mt-8 text-base">Hello, I'm</p>
+          <h2 class="text-3xl font-bold mt-1 cursor-pointer hover:text-primary transition-colors" routerLink="/rafael">Rafael Prieto</h2>
+          <p class="text-base text-gray-500 dark:text-gray-400 mt-2 mb-6">Student</p>
+
+          <div class="flex gap-3 flex-wrap justify-center">
+            <button class="btn btn-neutral btn-sm" routerLink="/rafael">Info</button>
+            <button class="btn btn-neutral btn-sm" routerLink="">Contact</button>
+          </div>
+
+          <div class="flex gap-6 mt-6">
+            <a href="https://github.com/Raet0" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin text-2xl"></i></a>
+            <a href="https://github.com/Raet0" class="hover:text-primary transition-colors"><i class="fa-brands fa-github text-2xl"></i></a>
+          </div>
+        </div>
+
+        <!-- Perfil 2 -->
+        <div class="flex flex-col items-center text-center">
+          <!-- Flip Card -->
+          <div class="group w-56 h-56 [perspective:1000px]">
+            <div class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              <!-- Front -->
+              <div class="absolute w-full h-full [backface-visibility:hidden]">
+                <img src="https://i.pinimg.com/736x/b2/fc/6e/b2fc6e887985585c9c39218c93ba1550.jpg" alt="Adrian"
+                  class="w-56 h-56 object-cover rounded-full shadow-lg" />
+              </div>
+              <!-- Back -->
+              <div class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-base-300 dark:bg-base-700 rounded-full flex items-center justify-center p-6 shadow-lg">
+                <p class="text-base-content text-sm font-semibold">Hola mi nombre es Adrian, tengo 26 años, soy apasionado por el desarrollo web y la innovación tecnológica.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-gray-600 dark:text-gray-400 mt-8 text-base">Hello, I'm</p>
+          <h2 class="text-3xl font-bold mt-1 cursor-pointer hover:text-primary transition-colors" routerLink="/adrian">Adrian Lazo</h2>
+          <p class="text-base text-gray-500 dark:text-gray-400 mt-2 mb-6">Student</p>
+
+          <div class="flex gap-3 flex-wrap justify-center">
+            <button class="btn btn-neutral btn-sm" routerLink="/adrian">Info</button>
+            <button class="btn btn-neutral btn-sm">Contact</button>
+          </div>
+
+          <div class="flex gap-6 mt-6">
+            <a href="https://github.com/scomygod" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin text-2xl"></i></a>
+            <a href="https://github.com/scomygod" class="hover:text-primary transition-colors"><i class="fa-brands fa-github text-2xl"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </main>
-
-<section id="profiles" class="w-full py-12 bg-base-100">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 place-items-center">
-
-    <!-- Perfil 1 -->
-    <div class="flex flex-col items-center text-center">
-      <!-- Flip Card -->
-      <div class="group w-56 h-56 [perspective:1000px]">
-        <div
-          class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-          <!-- Front -->
-          <div class="absolute w-full h-full [backface-visibility:hidden]">
-            <img src="/assets/images/Rafael-Profile.jpg" alt="rafael"
-              class="w-56 h-56 object-cover rounded-full shadow-lg" />
-          </div>
-          <!-- Back -->
-          <div
-            class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center p-6 shadow-lg">
-            <p class="text-sm font-semibold">Hola mi nombre es Rafael y soy desarrollador full-stack, tengo
-              22 años y me apaciona tomar retos y resolverlos.</p>
-          </div>
-        </div>
-      </div>
-
-      <p class="text-gray-600 mt-6 text-lg">Hello, I'm</p>
-      <h2 class="text-2xl font-bold ">Rafael Prieto</h2>
-      <p class="text-xl text-gray-500 mb-6">Student</p>
-
-      <div class="flex gap-4">
-        <button class="btn btn-outline">Download CV</button>
-        <button class="btn btn-neutral" routerLink="/rafael">Contact Info</button>
-      </div>
-
-      <div class="flex gap-4 mt-6">
-        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin text-3xl"></i></a>
-        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-github text-3xl"></i></a>
-      </div>
-    </div>
-
-    <!-- Perfil 2 -->
-    <div class="flex flex-col items-center text-center">
-      <!-- Flip Card -->
-      <div class="group w-56 h-56 [perspective:1000px]">
-        <div
-          class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-          <!-- Front -->
-          <div class="absolute w-full h-full [backface-visibility:hidden]">
-            <img src="/assets/images/Adrian-Profile.png" alt="Adrian"
-              class="w-56 h-56 object-cover rounded-full shadow-lg" />
-          </div>
-          <!-- Back -->
-          <div
-            class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center p-6 shadow-lg">
-            <p class="text-sm font-semibold">Hola mi nombre es Adrian tengo 26 años, soy apasionado por el desarrollo
-              web y la innovación tecnológica.</p>
-          </div>
-        </div>
-      </div>
-
-      <p class="text-gray-600 mt-6 text-lg">Hello, I'm</p>
-      <h2 class="text-2xl font-bold ">Adrian Lazo</h2>
-      <p class="text-xl text-gray-500 mb-6">Student</p>
-
-      <div class="flex gap-4">
-        <button class="btn btn-outline">Download CV</button>
-        <button class="btn btn-neutral">Contact Info</button>
-      </div>
-
-      <div class="flex gap-4 mt-6">
-        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin text-3xl"></i></a>
-        <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-github text-3xl"></i></a>
-      </div>
-    </div>
-
-  </div>
-</section>

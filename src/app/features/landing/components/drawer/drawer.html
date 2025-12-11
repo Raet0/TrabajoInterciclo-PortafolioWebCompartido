@@ -10,29 +10,58 @@
           </svg>
         </label>
       </div>
-      <div class="mx-2 flex-1 px-2 font-bold"></div>
+
+      <!-- Logo/Brand en el centro-izquierda -->
+      <div class="mx-2 flex-1 px-2 font-bold">Dev-Solutions</div>
+
+      <!-- Menú Desktop (versión oculta en móvil) -->
       <div class="hidden flex-none lg:block">
-        <ul class="menu menu-horizontal">
+        <ul class="menu menu-horizontal gap-2">
+          <li>
+            <button class="btn btn-ghost" (click)="scrollToHome()">
+              Profiles
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-ghost" (click)="scrollToProjects()">
+              Projects
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-ghost" (click)="scrollToContact()">
+              Contact
+            </button>
+          </li>
         </ul>
-        <!-- boton de inicio/registro -->
-        <a class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" routerLink="login"
-          routerLinkActive="bg-primary text-primary-content" [routerLinkActiveOptions]="{exact:true}">Login</a>
-        <!-- Botón de cambio de tema -->
+      </div>
+
+      <!-- Botón Login y Theme Switcher (lado derecho) -->
+      <div class="flex-none gap-2">
+        <a class="btn btn-ghost" routerLink="/login"
+          routerLinkActive="bg-primary text-primary-content" [routerLinkActiveOptions]="{exact:true}">
+          Login
+        </a>
         <app-theme-switcher></app-theme-switcher>
       </div>
     </div>
   </div>
-  <!-- phone version -->
+
+  <!-- Menú móvil (phone version) -->
   <div class="drawer-side">
     <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 min-h-full w-80 p-4">
-      <button class="hover:text-gray-500 transition " (click)="scrollToHome()">About</button>
-      <button class="hover:text-gray-500 transition " (click)="scrollToPerfiles()">Experience</button>
-      <button class="hover:text-gray-500 transition " (click)="scrollToPerfiles()">Projects</button>
-      <button class="hover:text-gray-500 transition " (click)="scrollToPerfiles()">Contact</button>
-      <!-- <li><a routerLink="" routerLinkActive="bg-primary text-primary-content" [routerLinkActiveOptions]="{ exact:true}">Inicio</a></li>
-      <li><a routerLink="/estilos" routerLinkActive="bg-primary text-primary-content" [routerLinkActiveOptions]="{ exact:true}">Estilos</a></li>
-      <li><a routerLink="/simpsons-page" routerLinkActive="bg-primary text-primary-content" [routerLinkActiveOptions]="{ exact:true}">Simpsons</a></li> -->
+      <li>
+        <button (click)="scrollToHome()">Profiles</button>
+      </li>
+      <li>
+        <button (click)="scrollToProjects()">Projects</button>
+      </li>
+      <li>
+        <button (click)="scrollToContact()">Contact</button>
+      </li>
+      <li>
+        <a routerLink="/login">Login</a>
+      </li>
     </ul>
     <!-- Theme switcher al pie del menú -->
     <div class="p-4 border-t border-base-300">
