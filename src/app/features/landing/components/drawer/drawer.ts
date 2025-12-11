@@ -1,23 +1,33 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeSwitcher } from '../theme-switcher/theme-switcher';
+
 @Component({
   selector: 'app-drawer',
-  imports: [ThemeSwitcher, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, ThemeSwitcher],
   templateUrl: './drawer.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Drawer {
-      scrollToPerfiles(){
-    const perfilesSection = document.getElementById('perfiles');
-    if (perfilesSection){
-      perfilesSection.scrollIntoView({behavior: 'smooth'});
+  scrollToHome() {
+    const element = document.getElementById('home');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   }
-  scrollToHome(){
-    const homeSelection = document.getElementById('home');
-    if (homeSelection){
-      homeSelection.scrollIntoView({behavior : 'smooth'});
+
+  scrollToProjects() {
+    const element = document.getElementById('projects');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   }
- }
+
+  scrollToContact() {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
