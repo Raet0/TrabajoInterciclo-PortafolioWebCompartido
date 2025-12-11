@@ -7,31 +7,37 @@
 
       <h2 class="text-3xl font-bold mb-8 text-base-content">Login Form</h2>
 
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
 
+        <!-- EMAIL -->
         <div class="mb-5 text-left">
           <input formControlName="email"
             class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
-            [class.input-error]="email?.invalid && email?.touched" type="email" placeholder="Email or Phone">
+            [class.input-error]="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched"
+            type="email"
+            placeholder="Email or Phone">
 
-          @if (email?.invalid && email?.touched) {
-          <span class="text-error text-xs ml-4 mt-1 block">
-            @if (email?.hasError('required')) { El correo es obligatorio }
-            @if (email?.hasError('email')) { Formato de correo inválido }
-          </span>
+          @if (loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched) {
+            <span class="text-error text-xs ml-4 mt-1 block">
+              @if (loginForm.controls['email']?.hasError('required')) { El correo es obligatorio }
+              @if (loginForm.controls['email']?.hasError('email')) { Formato de correo inválido }
+            </span>
           }
         </div>
 
+        <!-- PASSWORD -->
         <div class="mb-8 text-left">
           <input formControlName="password"
             class="input w-full p-4 rounded-[50px] bg-base-200 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all border-none"
-            [class.input-error]="password?.invalid && password?.touched" type="password" placeholder="Password">
+            [class.input-error]="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched"
+            type="password"
+            placeholder="Password">
 
-          @if (password?.invalid && password?.touched) {
-          <span class="text-error text-xs ml-4 mt-1 block">
-            @if (password?.hasError('required')) { La contraseña es obligatoria }
-            @if (password?.hasError('minlength')) { Mínimo 6 caracteres }
-          </span>
+          @if (loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched) {
+            <span class="text-error text-xs ml-4 mt-1 block">
+              @if (loginForm.controls['password']?.hasError('required')) { La contraseña es obligatoria }
+              @if (loginForm.controls['password']?.hasError('minlength')) { Mínimo 6 caracteres }
+            </span>
           }
         </div>
 
@@ -41,6 +47,7 @@
         </button>
 
       </form>
+
       <div class="text-sm text-base-content/70">
         <p class="inline">Not a member? </p>
         <a routerLink="/register"
@@ -51,5 +58,6 @@
 
     </div>
   </div>
+
   <footer-pro></footer-pro>
 </main>

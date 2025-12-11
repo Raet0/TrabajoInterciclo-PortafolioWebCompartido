@@ -1,71 +1,78 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { Drawer } from '../../components/drawer/drawer';
 import { Footer } from '../../components/footer/footer';
 import { Auth } from '../../../../core/services/firebase/auth';
-
-interface LoginRequest {
-  email: string;
-  password: string;
-}
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, Drawer, Footer],
+  imports: [ReactiveFormsModule, RouterLink, Drawer, Footer],
   templateUrl: './login-page.html',
-  styleUrl: './login-page.css',
 })
 export class LoginPage {
-  private fb = inject(FormBuilder);
-  private authService = inject(Auth);
-  private router = inject(Router);
+  private fb = inject(FormBuilder) as FormBuilder;
+  private auth = inject(Auth) as Auth;
+  private userService = inject(UserService) as UserService;
+  private router = inject(Router) as Router;
 
-  loginForm: FormGroup;
-  private loginTrigger = signal<LoginRequest | null>(null);
+  loading = signal(false);
 
-  loginResource$ = toObservable(this.loginTrigger).pipe(
-    switchMap((params) => {
-      if (!params) return of(null);
-      return this.authService.login(params.email, params.password);
-    })
-  );
+  // 🔥 Se llama igual que en tu HTML
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
 
-  constructor() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+  async login() {
+    if (this.loginForm.invalid) return;
 
-    effect(() => {
-      this.loginResource$.subscribe((result) => {
-        if (result) {
-          console.log('Login exitoso, redirigiendo...');
-          this.router.navigate(['/dashboard']);
-        }
-      });
-    });
-  }
-
-  onSubmit() {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
     const { email, password } = this.loginForm.value;
-    this.loginTrigger.set({ email, password });
-  }
+    this.loading.set(true);
 
-  get email() {
-    return this.loginForm.get('email');
-  }
+    try {
+      const result = await this.auth.login(email, password).toPromise();
 
-  get password() {
-    return this.loginForm.get('password');
+      if (!result || !result.user) {
+        alert('Error inesperado iniciando sesión.');
+        this.loading.set(false);
+        return;
+      }
+
+      const firebaseUser = result.user;
+
+      const profile = await this.userService.getUserProfile(firebaseUser.uid);
+
+      if (!profile) {
+        alert('Tu usuario no tiene perfil en Firestore.');
+        this.loading.set(false);
+        return;
+      }
+
+      this.userService.userProfile.set(profile);
+
+      switch (profile.rol) {
+        case 'admin':
+          this.router.navigate(['/admin']);
+          break;
+        case 'programador':
+          this.router.navigate(['/programmer']);
+          break;
+        case 'usuario':
+          this.router.navigate(['/usuario']);
+          break;
+        default:
+          this.router.navigate(['/']);
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('Credenciales incorrectas');
+    } finally {
+      this.loading.set(false);
+    }
   }
 }
