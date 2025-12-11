@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import type { ProgramadorProfile } from '../../models';
+import type { ProgramadorPerfil as ProgramadorProfile } from '../../core/services/programmer.service';
 import { Auth } from '../../core/services/firebase/auth';
+import { ProgramadorService } from '../../core/services/programmer.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -12,41 +13,46 @@ import { Auth } from '../../core/services/firebase/auth';
 })
 export class AdminPageComponent {
   auth = inject(Auth);
+  programadorService = inject(ProgramadorService);
 
   programadores = signal<ProgramadorProfile[]>([]);
   form = signal<Partial<ProgramadorProfile>>({});
   editingId = signal<string | null>(null);
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      this.programadores.set(this.programadorService.programadores());
+    });
+  }
 
-  addOrUpdate() {
+  async addOrUpdate() {
     const data = this.form();
     if (!data.nombre || !data.especialidad) return alert('Nombre y especialidad requeridos');
 
     if (this.editingId()) {
-      this.programadores.update(list =>
-        list.map(p => p.id === this.editingId() ? ({ ...(p), ...(data as any) }) : p)
-      );
+      await this.programadorService.updateProgrammer(this.editingId()!, {
+        nombre: data.nombre!,
+        especialidad: data.especialidad!,
+        descripcion: data.descripcion || ''
+      });
       this.cancelEdit();
     } else {
-      const nuevo: ProgramadorProfile = {
-        id: Math.random().toString(36).slice(2),
+      const uid = crypto.randomUUID();
+      await this.programadorService.createProgrammer(uid, {
+        uid,
         nombre: data.nombre!,
         especialidad: data.especialidad!,
         descripcion: data.descripcion || '',
-        fotoUrl: data.fotoUrl || '',
-        contactos: data.contactos || [],
-        redes: data.redes || [],
-        disponibilidad: [],
-        proyectos: [],
-      };
-      this.programadores.update(list => [nuevo, ...list]);
+        fotoUrl: '',
+        redes: [],
+        habilidades: []
+      });
       this.form.set({});
     }
   }
 
   edit(p: ProgramadorProfile) {
-    this.editingId.set(p.id);
+    this.editingId.set(p.uid);
     this.form.set({ ...p });
   }
 
@@ -55,8 +61,8 @@ export class AdminPageComponent {
     this.form.set({});
   }
 
-  remove(id: string) {
+  async remove(uid: string) {
     if (!confirm('Eliminar programador?')) return;
-    this.programadores.update(list => list.filter(p => p.id !== id));
+    await this.programadorService.deleteProgrammer(uid);
   }
 }

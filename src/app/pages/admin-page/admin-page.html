@@ -31,7 +31,7 @@
   <h2 class="text-3xl font-semibold mb-6">Programadores Registrados</h2>
 
   <div class="grid md:grid-cols-2 gap-6">
-    @for (p of programadores(); track p.id) {
+    @for (p of programadores(); track p.uid) {
       <div class="border rounded-xl p-6 shadow-sm hover:shadow-md transition">
         <h3 class="text-xl font-bold">{{ p.nombre }}</h3>
         <p class="text-orange-500 font-semibold">{{ p.especialidad }}</p>
@@ -40,7 +40,7 @@
 
         <div class="flex gap-4 mt-4">
           <button class="px-3 py-2 bg-orange-500 text-white rounded-lg" (click)="edit(p)">Editar</button>
-          <button class="px-3 py-2 bg-red-500 text-white rounded-lg" (click)="remove(p.id)">Eliminar</button>
+          <button class="px-3 py-2 bg-red-500 text-white rounded-lg" (click)="remove(p.uid)">Eliminar</button>
         </div>
       </div>
     } @empty {
