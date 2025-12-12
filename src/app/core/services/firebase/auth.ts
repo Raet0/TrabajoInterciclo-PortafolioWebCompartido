@@ -1,55 +1,47 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { Auth as FirebaseAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
+import { Injectable, inject, signal } from '@angular/core';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User, UserCredential, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Auth {
-  private firebaseAuth: FirebaseAuth = inject(FirebaseAuth);
-
-  // Signal para el usuario actual
+// CAMBIO CLAVE: Renombramos la clase a 'AuthService'
+export class AuthService { 
+  
+  // Como ya no hay choque de nombres, podemos inyectar 'Auth' directamente
+  private firebaseAuth = inject(Auth); 
+  
   currentUser = signal<User | null>(null);
-
-  // Observable del estado de autenticación
-  user$ = user(this.firebaseAuth);
+  private authInitialized: Promise<void>;
 
   constructor() {
-    // Suscribirse a cambios en el estado de autenticación
-    this.user$.subscribe((user: User | null) => {
-      this.currentUser.set(user);
-      // User profile loading moved to UserService to avoid circular dependency
+    this.authInitialized = new Promise((resolve) => {
+      onAuthStateChanged(this.firebaseAuth, (user) => {
+        this.currentUser.set(user);
+        console.log('Usuario autenticado:', user?.email || 'No autenticado');
+        resolve();
+      });
     });
   }
 
-  /**
-   * Registrar nuevo usuario con email y password
-   */
-  register(email: string, password: string): Observable<any> {
-    const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password);
-    return from(promise);
+  async waitForAuth(): Promise<void> {
+    return this.authInitialized;
   }
 
-  /**
-   * Login con email y password
-   */
-  login(email: string, password: string): Observable<any> {
-    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password);
-    return from(promise);
+  register(email: string, pass: string): Observable<any> {
+    return from(createUserWithEmailAndPassword(this.firebaseAuth, email, pass));
   }
 
-  /**
-   * Cerrar sesión
-   */
+  login(email: string, pass: string): Observable<any> {
+    return from(signInWithEmailAndPassword(this.firebaseAuth, email, pass));
+  }
+
   logout(): Observable<void> {
-    const promise = signOut(this.firebaseAuth);
-    return from(promise);
+    return from(signOut(this.firebaseAuth));
   }
-
-  /**
-   * Verificar si hay un usuario autenticado
-   */
-  isAuthenticated(): boolean {
-    return this.currentUser() !== null;
+  // -- nuevo metodo --
+  loginWithGoogle() : Observable<UserCredential>{
+    const provider = new GoogleAuthProvider();
+    return from(signInWithPopup(this.firebaseAuth, provider));
   }
 }
