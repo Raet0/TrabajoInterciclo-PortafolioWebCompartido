@@ -1,50 +1,50 @@
-<section class="max-w-5xl mx-auto px-4 py-20">
+<section class="max-w-5xl mx-auto px-6 py-20 bg-base-100 dark:bg-base-700 text-base-content">
 
-  <h1 class="text-4xl font-bold mb-10">Panel del Administrador</h1>
+  <h1 class="text-4xl font-extrabold mb-10 text-center">Panel del Administrador</h1>
 
   <!-- Formulario -->
-  <div class="border rounded-xl p-6 shadow-sm mb-14">
+  <div class="border border-base-content/20 rounded-2xl p-6 shadow-md mb-14 bg-base-200 dark:bg-base-800 transition hover:shadow-lg">
     <h2 class="text-3xl font-semibold mb-6">
       @if (editingId()) { Editar Programador } @else { Crear Programador }
     </h2>
 
     <form (submit)="$event.preventDefault(); addOrUpdate()" class="grid gap-4">
-      <input class="border px-4 py-2 rounded-lg" placeholder="Nombre" [(ngModel)]="form().nombre" name="nombre" />
+      <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Nombre" [(ngModel)]="form().nombre" name="nombre" />
 
-      <input class="border px-4 py-2 rounded-lg" placeholder="Especialidad" [(ngModel)]="form().especialidad" name="esp" />
+      <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Especialidad" [(ngModel)]="form().especialidad" name="esp" />
 
-      <textarea class="border px-4 py-2 rounded-lg" placeholder="Descripción" [(ngModel)]="form().descripcion"></textarea>
+      <textarea class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Descripción" [(ngModel)]="form().descripcion"></textarea>
 
       <div class="flex gap-4 mt-4">
-        <button class="px-4 py-2 bg-orange-500 text-white rounded-lg">
+        <button class="px-6 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-focus transition-colors">
           @if (editingId()) { Guardar Cambios } @else { Crear }
         </button>
 
         @if (editingId()) {
-          <button type="button" class="px-4 py-2 border border-gray-400 rounded-lg" (click)="cancelEdit()">Cancelar</button>
+          <button type="button" class="px-6 py-2 border border-base-content/30 rounded-lg shadow hover:bg-base-300 dark:hover:bg-base-700 transition-colors" (click)="cancelEdit()">Cancelar</button>
         }
       </div>
     </form>
   </div>
 
   <!-- Lista -->
-  <h2 class="text-3xl font-semibold mb-6">Programadores Registrados</h2>
+  <h2 class="text-3xl font-semibold mb-6 text-center">Programadores Registrados</h2>
 
   <div class="grid md:grid-cols-2 gap-6">
     @for (p of programadores(); track p.uid) {
-      <div class="border rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="border border-base-content/20 rounded-2xl p-6 shadow-md hover:shadow-lg transition bg-base-200 dark:bg-base-800">
         <h3 class="text-xl font-bold">{{ p.nombre }}</h3>
-        <p class="text-orange-500 font-semibold">{{ p.especialidad }}</p>
+        <p class="font-semibold">{{ p.especialidad }}</p>
 
-        <p class="text-gray-600 mt-2">{{ p.descripcion }}</p>
+        <p class="text-base-content/70 mt-2">{{ p.descripcion }}</p>
 
         <div class="flex gap-4 mt-4">
-          <button class="px-3 py-2 bg-orange-500 text-white rounded-lg" (click)="edit(p)">Editar</button>
-          <button class="px-3 py-2 bg-red-500 text-white rounded-lg" (click)="remove(p.uid)">Eliminar</button>
+          <button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-focus transition-colors" (click)="edit(p)">Editar</button>
+          <button class="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow hover:bg-red-600 transition-colors" (click)="remove(p.uid)">Eliminar</button>
         </div>
       </div>
     } @empty {
-      <p class="text-gray-500">No hay programadores registrados.</p>
+      <p class="text-base-content/60 text-center">No hay programadores registrados.</p>
     }
   </div>
 

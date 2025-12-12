@@ -1,73 +1,73 @@
-<section class="max-w-5xl mx-auto px-4 py-20">
+<section class="max-w-5xl mx-auto px-6 py-20 bg-base-100 dark:bg-base-700 text-base-content">
 
-  <h1 class="text-4xl font-bold mb-10">Panel del Programador</h1>
+  <h1 class="text-4xl font-extrabold mb-10 text-center">Panel del Programador</h1>
 
   @if (profile()) {
 
     <!-- Información -->
-    <div class="border rounded-xl p-6 shadow-sm mb-14">
+    <div class="border border-base-content/20 rounded-2xl p-6 shadow-md mb-14 bg-base-200 dark:bg-base-800 transition hover:shadow-lg">
       <h2 class="text-3xl font-semibold mb-4">{{ profile()!.nombre }}</h2>
-      <p class="text-orange-500 font-semibold mb-2">{{ profile()!.especialidad }}</p>
-      <p class="text-gray-600">{{ profile()!.descripcion }}</p>
+      <p class="text-secondary font-semibold mb-2">{{ profile()!.especialidad }}</p>
+      <p class="text-base-content/70">{{ profile()!.descripcion }}</p>
     </div>
 
     <!-- Agregar proyecto -->
-    <div class="border rounded-xl p-6 shadow-sm mb-14">
+    <div class="border border-base-content/20 rounded-2xl p-6 shadow-md mb-14 bg-base-200 dark:bg-base-800 transition hover:shadow-lg">
       <h2 class="text-3xl font-semibold mb-6">Agregar Proyecto</h2>
 
       <form (submit)="$event.preventDefault(); addProyecto()" class="grid gap-4">
-        <input class="border px-4 py-2 rounded-lg" placeholder="Nombre" [(ngModel)]="proyectoForm().nombre" name="nom" />
+        <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Nombre" [(ngModel)]="proyectoForm().nombre" name="nom" />
 
-        <textarea class="border px-4 py-2 rounded-lg" placeholder="Descripción" [(ngModel)]="proyectoForm().descripcion"></textarea>
+        <textarea class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Descripción" [(ngModel)]="proyectoForm().descripcion"></textarea>
 
-        <select class="border px-4 py-2 rounded-lg" [(ngModel)]="proyectoForm().seccion" name="sec">
+        <select class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" [(ngModel)]="proyectoForm().seccion" name="sec">
           <option value="Academico">Académico</option>
           <option value="Laboral">Laboral</option>
         </select>
 
-        <button class="px-4 py-2 bg-orange-500 text-white rounded-lg">Agregar</button>
+        <button class="px-6 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-focus transition-colors">Agregar</button>
       </form>
     </div>
 
     <!-- Proyectos -->
-    <h2 class="text-3xl font-semibold mb-6">Mis Proyectos</h2>
+    <h2 class="text-3xl font-semibold mb-6 text-center">Mis Proyectos</h2>
 
     <div class="grid md:grid-cols-2 gap-8">
       @for (pr of profile()!.proyectos || []; track pr.id) {
-        <div class="border rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <div class="border border-base-content/20 rounded-2xl p-6 shadow-md hover:shadow-lg transition bg-base-200 dark:bg-base-800">
           <h3 class="text-xl font-bold mb-1">{{ pr.nombre }}</h3>
-          <p class="text-gray-600 mb-3">{{ pr.descripcion }}</p>
-          <p class="text-orange-500 text-sm font-semibold">{{ pr.participacion }}</p>
+          <p class="text-base-content/70 mb-3">{{ pr.descripcion }}</p>
+          <p class="text-secondary text-sm font-semibold">{{ pr.participacion }}</p>
         </div>
       } @empty {
-        <p class="text-gray-500">No hay proyectos aún.</p>
+        <p class="text-base-content/60 text-center">No hay proyectos aún.</p>
       }
     </div>
 
     <!-- Asesorías -->
     <div class="mt-20">
-      <h2 class="text-3xl font-semibold mb-6">Solicitudes de Asesoría</h2>
+      <h2 class="text-3xl font-semibold mb-6 text-center">Solicitudes de Asesoría</h2>
 
       @for (a of asesorias(); track a.id) {
-        <div class="border rounded-xl p-6 shadow-sm mb-4">
+        <div class="border border-base-content/20 rounded-2xl p-6 shadow-md mb-4 bg-base-200 dark:bg-base-800 transition hover:shadow-lg">
           <p class="font-bold">{{ a.solicitanteNombre }}</p>
-          <p class="text-gray-600">{{ a.comentario }}</p>
-          <p class="text-sm text-gray-400 mb-2">{{ a.fechaISO }}</p>
+          <p class="text-base-content/70">{{ a.comentario }}</p>
+          <p class="text-sm text-base-content/50 mb-2">{{ a.fechaISO }}</p>
 
           @if (a.estado === 'pendiente') {
             <div class="flex gap-4">
-              <button class="px-3 py-2 bg-orange-500 text-white rounded-lg" (click)="responderAsesoria(a, true, 'Aprobada')">Aprobar</button>
-              <button class="px-3 py-2 bg-red-500 text-white rounded-lg" (click)="responderAsesoria(a, false, 'Rechazada')">Rechazar</button>
+              <button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-focus transition-colors" (click)="responderAsesoria(a, true, 'Aprobada')">Aprobar</button>
+              <button class="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow hover:bg-red-600 transition-colors" (click)="responderAsesoria(a, false, 'Rechazada')">Rechazar</button>
             </div>
           }
         </div>
       } @empty {
-        <p class="text-gray-500">Sin solicitudes.</p>
+        <p class="text-base-content/60 text-center">Sin solicitudes.</p>
       }
     </div>
 
   } @else {
-    <p class="text-gray-500">Cargando...</p>
+    <p class="text-base-content/60 text-center">Cargando...</p>
   }
 
 </section>

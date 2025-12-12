@@ -2,47 +2,57 @@
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col">
     <div class="navbar bg-base-300 w-full">
+      <!-- Botón hamburguesa móvil -->
       <div class="flex-none lg:hidden">
         <label for="my-drawer-2" aria-label="open sidebar" class="btn btn-square btn-ghost">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            class="inline-block h-6 w-6 stroke-current">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="inline-block h-6 w-6 stroke-current"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
           </svg>
         </label>
       </div>
 
-      <!-- Logo/Brand en el centro-izquierda -->
-      <div class="mx-2 flex-1 px-2 font-bold text-xl">Dev-Solutions</div>
+      <!-- Logo/Brand -->
+      <div class="mx-2 flex-1 px-2 font-bold">Dev-Solutions</div>
 
-      <!-- Menú Desktop (versión oculta en móvil) -->
+      <!-- Menú Desktop -->
       <div class="hidden flex-none lg:block">
         <ul class="menu menu-horizontal gap-2">
-          <li>
-            <button class="btn btn-ghost" (click)="scrollToHome()">
-              Profiles
-            </button>
+          <li *ngIf="router.url === '/'">
+            <a class="btn btn-ghost" routerLink="/" fragment="home" routerLinkActive="active" (click)="scrollToSection('home')">Home</a>
           </li>
-          <li>
-            <button class="btn btn-ghost" (click)="scrollToProjects()">
-              Projects
-            </button>
+          <li *ngIf="router.url === '/'">
+            <a class="btn btn-ghost" routerLink="/" fragment="perfiles" routerLinkActive="active" (click)="scrollToSection('perfiles')">Profiles</a>
           </li>
-          <li>
-            <button class="btn btn-ghost" (click)="scrollToContact()">
-              Contact
-            </button>
+          <li *ngIf="router.url === '/'">
+            <a class="btn btn-ghost" routerLink="/" fragment="projects" routerLinkActive="active" (click)="scrollToSection('projects')">Projects</a>
           </li>
-          <li>
-            <a class="btn btn-ghost" routerLink="" routerLinkActive="bg-primary text-primary-content"
-              [routerLinkActiveOptions]="{ exact: true }">Home</a>
+          <li *ngIf="router.url !== '/'">
+            <a class="btn btn-ghost" routerLink="/">Home</a>
+          </li>
+          <li *ngIf="router.url !== '/login'">
+            <a class="btn btn-ghost" routerLink="/login">Contact</a>
           </li>
         </ul>
       </div>
 
-      <!-- Botón Login y Theme Switcher (lado derecho) -->
+      <!-- Botón Login y Theme Switcher -->
       <div class="flex-none gap-2">
-        <a class="btn btn-ghost" routerLink="/login"
-          routerLinkActive="bg-primary text-primary-content" [routerLinkActiveOptions]="{exact:true}">
+        <a
+          class="btn btn-ghost"
+          routerLink="/login"
+          routerLinkActive="bg-primary text-primary-content"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           Login
         </a>
         <app-theme-switcher></app-theme-switcher>
@@ -50,26 +60,27 @@
     </div>
   </div>
 
-  <!-- phone version -->
+  <!-- Menú móvil -->
   <div class="drawer-side">
     <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 min-h-full w-80 p-4">
-      <li>
-        <button class="hover:text-gray-500 transition" (click)="scrollToHome()">Profiles</button>
+      <li *ngIf="router.url === '/'">
+        <a routerLink="/" fragment="home" routerLinkActive="active" (click)="scrollToSection('home')">Home</a>
+      </li>
+      <li *ngIf="router.url === '/'">
+        <a routerLink="/" fragment="perfiles" routerLinkActive="active" (click)="scrollToSection('perfiles')">Profiles</a>
+      </li>
+      <li *ngIf="router.url === '/'">
+        <a routerLink="/" fragment="projects" routerLinkActive="active" (click)="scrollToSection('projects')">Projects</a>
+      </li>
+      <li *ngIf="router.url !== '/'">
+        <a class="btn btn-ghost" routerLink="/">Home</a>
       </li>
       <li>
-        <button class="hover:text-gray-500 transition" (click)="scrollToProjects()">Projects</button>
+        <a routerLink="/login">Contact</a>
       </li>
       <li>
-        <button class="hover:text-gray-500 transition" (click)="scrollToContact()">Contact</button>
-      </li>
-      <li>
-        <a routerLink="" routerLinkActive="bg-primary text-primary-content"
-          [routerLinkActiveOptions]="{ exact: true }">Home</a>
-      </li>
-      <li>
-        <a routerLink="/login" routerLinkActive="bg-primary text-primary-content"
-          [routerLinkActiveOptions]="{ exact: true }">Login</a>
+        <a routerLink="/login">Login</a>
       </li>
     </ul>
 
