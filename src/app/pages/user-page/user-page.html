@@ -1,48 +1,48 @@
-<section class="max-w-5xl mx-auto px-4 py-20">
+<section class="max-w-5xl mx-auto px-6 py-20 bg-base-100 dark:bg-base-700 text-base-content">
 
-  <h1 class="text-4xl font-bold mb-10">Agendar Asesoría</h1>
+  <h1 class="text-4xl font-extrabold mb-10 text-center">Agendar Asesoría</h1>
 
   <!-- Lista de programadores -->
   <h2 class="text-3xl font-semibold mb-6">Programadores Disponibles</h2>
 
   <div class="grid md:grid-cols-2 gap-8 mb-14">
     @for (p of programadores(); track p.id) {
-      <div class="border rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="border border-base-content/20 rounded-2xl p-6 shadow-md hover:shadow-lg transition bg-base-200 dark:bg-base-800">
         <h3 class="text-xl font-bold mb-1">{{ p.nombre }}</h3>
-        <p class="text-gray-600 mb-4">{{ p.especialidad }}</p>
+        <p class="text-base-content/70 mb-4">{{ p.especialidad }}</p>
 
-        <button class="px-4 py-2 bg-orange-500 text-white rounded-lg"
+        <button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-focus transition-colors"
                 (click)="seleccionar(p.id)">
           Seleccionar
         </button>
       </div>
     } @empty {
-      <p class="text-gray-500">No hay programadores registrados.</p>
+      <p class="text-base-content/60">No hay programadores registrados.</p>
     }
   </div>
 
   <!-- Formulario -->
-  <div class="border rounded-xl p-6 shadow-sm">
+  <div class="border border-base-content/20 rounded-2xl p-6 shadow-md bg-base-200 dark:bg-base-800 transition hover:shadow-lg">
     <h2 class="text-3xl font-semibold mb-6">Formulario de Solicitud</h2>
 
     <form (submit)="$event.preventDefault(); enviar()" class="grid gap-4">
 
-      <select class="border px-4 py-2 rounded-lg" [(ngModel)]="agendarForm().programadorId" name="prog">
+      <select class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" [(ngModel)]="agendarForm().programadorId" name="prog">
         <option value="">-- Seleccionar Programador --</option>
         @for (p of programadores(); track p.id) {
           <option [value]="p.id">{{ p.nombre }}</option>
         }
       </select>
 
-      <input class="border px-4 py-2 rounded-lg" placeholder="Tu nombre" [(ngModel)]="agendarForm().solicitanteNombre" />
+      <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Tu nombre" [(ngModel)]="agendarForm().solicitanteNombre" />
 
-      <input class="border px-4 py-2 rounded-lg" placeholder="Tu email" [(ngModel)]="agendarForm().solicitanteEmail" />
+      <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Tu email" [(ngModel)]="agendarForm().solicitanteEmail" />
 
-      <input type="datetime-local" class="border px-4 py-2 rounded-lg" [(ngModel)]="agendarForm().fechaISO" />
+      <input type="datetime-local" class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900" [(ngModel)]="agendarForm().fechaISO" />
 
-      <textarea class="border px-4 py-2 rounded-lg" placeholder="Comentario" [(ngModel)]="agendarForm().comentario"></textarea>
+      <textarea class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Comentario" [(ngModel)]="agendarForm().comentario"></textarea>
 
-      <button class="px-4 py-2 bg-orange-500 text-white rounded-lg">Enviar Solicitud</button>
+      <button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-focus transition-colors">Enviar Solicitud</button>
     </form>
   </div>
 

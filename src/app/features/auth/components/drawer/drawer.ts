@@ -1,51 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ThemeSwitcher } from '../theme-switcher/theme-switcher';
+import { ThemeSwitcher } from '../../../landing/components/theme-switcher/theme-switcher';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-drawer',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ThemeSwitcher],
+  imports: [RouterLink, RouterLinkActive, ThemeSwitcher, CommonModule],
   templateUrl: './drawer.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Drawer {
-  scrollToHome() {
-    const element = document.getElementById('home');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      this.closeDrawer();
-    }
-  }
+  constructor(public router: Router) {}
 
-  scrollToProjects() {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      this.closeDrawer();
-    }
-  }
-
-  scrollToContact() {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      this.closeDrawer();
-    }
-  }
-
-  scrollToPerfiles() {
-    const element = document.getElementById('perfiles');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      this.closeDrawer();
-    }
-  }
-
-  private closeDrawer() {
-    const drawerToggle = document.getElementById('my-drawer-2') as HTMLInputElement;
-    if (drawerToggle) {
-      drawerToggle.checked = false;
-    }
+  scrollToSection(id: string) {
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
   }
 }

@@ -3,7 +3,7 @@ import { Hero } from "../../components/hero/hero";
 import { Footer } from "../../components/footer/footer";
 import { BackToTop } from "../../components/back-to-top/back-to-top";
 import { Perfiles } from "../../components/perfiles/perfiles";
-import { Drawer } from "../../components/drawer/drawer";
+import { Drawer } from "../../../auth/components/drawer/drawer";
 import { ThemeSwitcher } from "../../components/theme-switcher/theme-switcher";
 import { FeaturedProjects } from "../../components/featured-projects/featured-projects";
 
