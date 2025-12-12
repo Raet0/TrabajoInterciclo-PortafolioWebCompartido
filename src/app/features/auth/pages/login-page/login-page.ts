@@ -89,10 +89,10 @@ export class LoginPage {
           nombre: result.user.displayName || 'Usuario Google',
           rol: 'usuario'
         };
-        
+
         // CORRECCIÓN CLAVE: 'as any' para evitar error de tipado
         await this.userService.setUserProfile(result.user.uid, newProfile as any);
-        
+
         profile = newProfile as any;
       }
 
@@ -116,7 +116,7 @@ export class LoginPage {
       return;
     }
     this.userService.userProfile.set(profile);
-    
+
     switch (profile.rol) {
       case 'admin': this.router.navigate(['/admin']); break;
       case 'programador': this.router.navigate(['/programador']); break;

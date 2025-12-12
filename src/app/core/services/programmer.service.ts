@@ -11,6 +11,7 @@ import {
   collectionData,
   DocumentReference
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 export interface ProgramadorPerfil {
   uid: string;
@@ -22,6 +23,7 @@ export interface ProgramadorPerfil {
   redes?: { nombre: string; url: string }[];
   habilidades?: string[];
   bioLarga?: string;
+  proyectos?: any[];
 }
 
 @Injectable({
@@ -56,7 +58,8 @@ export class ProgramadorService {
         cvUrl: d.cvUrl ?? null,
         redes: d.redes ?? [],
         habilidades: d.habilidades ?? [],
-        bioLarga: d.bioLarga ?? ''
+        bioLarga: d.bioLarga ?? '',
+        proyectos: d.proyectos ?? []
       }));
       this.programadores.set(mapped);
     });
@@ -85,5 +88,17 @@ export class ProgramadorService {
   async deleteProgrammer(uid: string) {
     const ref = doc(this.firestore, `programadores/${uid}`);
     await deleteDoc(ref);
+  }
+
+  /** 🔥 Actualizar la propiedad proyectos de un programador */
+  async setProyectos(uid: string, proyectos: any[]) {
+    const ref = doc(this.firestore, `programadores/${uid}`);
+    await updateDoc(ref, { proyectos });
+  }
+
+  /** 🔥 Obtener un observable con todos los programadores actualizados en tiempo real */
+  getProgramadores$(): Observable<ProgramadorPerfil[]> {
+    const col = collection(this.firestore, 'programadores');
+    return collectionData(col, { idField: 'uid' }) as Observable<ProgramadorPerfil[]>;
   }
 }

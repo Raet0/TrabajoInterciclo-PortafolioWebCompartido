@@ -12,6 +12,9 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 import { Drawer } from "../../components/drawer/drawer";
+import { AuthService } from '../../../../core/services/firebase/auth';
+import { UserService } from '../../../../core/services/user.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,21 +23,23 @@ import { Drawer } from "../../components/drawer/drawer";
     CommonModule,
     ReactiveFormsModule,
     Drawer
-],
+  ],
   templateUrl: './user-profile.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfile implements OnInit {
 
   profileForm!: FormGroup;
-  currentUser: any = null;
+  currentUser: any = null; // usuario cargado de Firebase
   isEditing = false;
   selectedFile: File | null = null;
   photoPreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -42,24 +47,28 @@ export class UserProfile implements OnInit {
       displayName: ['', [Validators.required, Validators.minLength(3)]]
     });
 
-    this.loadUserData();
+    // Esperar a que AuthService esté inicializado
+    this.authService.waitForAuth().then(() => {
+      const uid = this.authService.currentUser()?.uid;
+      if (uid) {
+        this.loadUserData(uid);
+
+      }
+    });
   }
 
-  loadUserData(): void {
-    // MOCK DATA (reemplazar por AuthService / UserService)
-    this.currentUser = {
-      uid: '123',
-      displayName: 'Nuevo Usuario',
-      email: 'usuario@ejemplo.com',
-      role: 'USUARIO',
-      photoURL: 'assets/default-avatar.png'
-    };
+  async loadUserData(uid: string): Promise<void> {
+    const profile = await this.userService.getUserProfile(uid);
+    if (!profile) return;
 
+    this.currentUser = profile;
     this.profileForm.patchValue({
-      displayName: this.currentUser.displayName
+      displayName: profile.nombre
     });
+    console.log(profile)
+    this.currentUser.displayName = profile.nombre
 
-    this.photoPreview = this.currentUser.photoURL;
+    this.photoPreview = (profile as any).photoURL || 'assets/default-avatar.png';
 
     this.cdr.markForCheck();
   }
@@ -67,8 +76,8 @@ export class UserProfile implements OnInit {
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
 
-    if (!this.isEditing) {
-      this.loadUserData();
+    if (!this.isEditing && this.currentUser) {
+      this.profileForm.patchValue({ displayName: this.currentUser.nombre });
     }
 
     this.cdr.markForCheck();
@@ -76,42 +85,38 @@ export class UserProfile implements OnInit {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
 
-    if (!input.files || input.files.length === 0) {
-      return;
-    }
-
-    const file = input.files[0];
-    this.selectedFile = file;
-
+    this.selectedFile = input.files[0];
     const reader = new FileReader();
     reader.onload = () => {
       this.photoPreview = reader.result as string;
       this.cdr.markForCheck();
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(this.selectedFile);
   }
 
-  onSubmit(): void {
-    if (this.profileForm.invalid) {
+  async onSubmit(): Promise<void> {
+    if (this.profileForm.invalid || !this.currentUser) {
       this.profileForm.markAllAsTouched();
       return;
     }
 
-    const updatedData = this.profileForm.value;
+    const updatedData = {
+      nombre: this.profileForm.value.displayName
+    };
 
-    console.log('Datos a actualizar:', updatedData);
+    // Guardar en Firestore
+    await this.userService.setUserProfile(this.currentUser.uid, updatedData);
 
-    if (this.selectedFile) {
-      console.log('Nueva foto seleccionada:', this.selectedFile);
-    }
 
-    // Aquí iría tu llamada real al backend
-    // userService.updateProfile(...)
+    // Para la foto, si quieres subir a Storage deberías agregarlo aquí
+    // por ejemplo:
+    // if (this.selectedFile) { ... subir a Firebase Storage ... }
 
-    alert('Simulación: perfil actualizado correctamente');
-
+    alert('Perfil actualizado correctamente');
     this.isEditing = false;
+    this.loadUserData(this.currentUser.uid); // recargar datos
     this.cdr.markForCheck();
   }
 }
