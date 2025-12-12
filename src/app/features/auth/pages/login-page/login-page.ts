@@ -21,7 +21,6 @@ export class LoginPage {
 
   loading = signal(false);
 
-  // 🔥 Se llama igual que en tu HTML
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
@@ -59,7 +58,7 @@ export class LoginPage {
           this.router.navigate(['/admin']);
           break;
         case 'programador':
-          this.router.navigate(['/programmer']);
+          this.router.navigate(['/programador']);
           break;
         case 'usuario':
           this.router.navigate(['/usuario']);

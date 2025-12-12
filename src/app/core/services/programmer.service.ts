@@ -9,8 +9,10 @@ import {
   deleteDoc,
   getDoc,
   collectionData,
-  DocumentReference
+  DocumentReference,
 } from '@angular/fire/firestore';
+import { Proyecto } from '../../models';
+import { Observable } from 'rxjs/internal/Observable';
 
 export interface ProgramadorPerfil {
   uid: string;
@@ -43,11 +45,10 @@ export class ProgramadorService {
     return collectionData(col, { idField: 'uid' }) as any;
   }
 
-  /** 🔥 Cargar todos los programadores y guardarlos en signal */
   loadAllProgrammers() {
     const col = collection(this.firestore, 'programadores');
     collectionData(col, { idField: 'uid' }).subscribe((data) => {
-      const mapped = (data as any[]).map(d => ({
+      const mapped = (data as any[]).map((d) => ({
         uid: d.uid ?? '',
         nombre: d.nombre ?? '',
         especialidad: d.especialidad ?? '',
@@ -56,7 +57,7 @@ export class ProgramadorService {
         cvUrl: d.cvUrl ?? null,
         redes: d.redes ?? [],
         habilidades: d.habilidades ?? [],
-        bioLarga: d.bioLarga ?? ''
+        bioLarga: d.bioLarga ?? '',
       }));
       this.programadores.set(mapped);
     });
@@ -85,5 +86,15 @@ export class ProgramadorService {
   async deleteProgrammer(uid: string) {
     const ref = doc(this.firestore, `programadores/${uid}`);
     await deleteDoc(ref);
+  }
+  /** Agregar o actualizar proyectos de un programador */
+  async setProyectos(uid: string, proyectos: Proyecto[]) {
+    const ref = doc(this.firestore, `programadores/${uid}`);
+    await updateDoc(ref, { proyectos });
+  }
+  /** Observable de programadores para cualquier componente */
+  getProgramadores$() {
+    const col = collection(this.firestore, 'programadores');
+    return collectionData(col, { idField: 'uid' }) as Observable<ProgramadorPerfil[]>;
   }
 }

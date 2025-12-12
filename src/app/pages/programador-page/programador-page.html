@@ -16,11 +16,11 @@
       <h2 class="text-3xl font-semibold mb-6">Agregar Proyecto</h2>
 
       <form (submit)="$event.preventDefault(); addProyecto()" class="grid gap-4">
-        <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Nombre" [(ngModel)]="proyectoForm().nombre" name="nom" />
+        <input class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Nombre" [(ngModel)]="proyectoForm().nombre" name="proyectoNombre" />
 
-        <textarea class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Descripción" [(ngModel)]="proyectoForm().descripcion"></textarea>
+        <textarea class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" placeholder="Descripción" [(ngModel)]="proyectoForm().descripcion" name="proyectoDescripcion"></textarea>
 
-        <select class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" [(ngModel)]="proyectoForm().seccion" name="sec">
+        <select class="border border-base-content/20 px-4 py-2 rounded-lg shadow-sm bg-base-100 dark:bg-base-900 placeholder:text-base-content/60" [(ngModel)]="proyectoForm().seccion" name="proyectoSeccion">
           <option value="Academico">Académico</option>
           <option value="Laboral">Laboral</option>
         </select>
