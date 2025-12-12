@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { redirectByRoleGuard } from './core/guards/redirect-by-role.guard'; // 1. Importar el guard
 import { roleGuard } from './core/guards/role.guards'; // Corregido: suele ser roleGuard (singular) o roleGuards (plural), verifica tu archivo.
+import { Horarios } from './features/landing/components/horarios/horarios';
+import { UserProfile } from './features/auth/pages/user-profile/user-profile';
 
 export const routes: Routes = [
   {
@@ -9,6 +11,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/landing/pages/landing/landing').then(m => m.Landing),
       // Opcional: También puedes poner redirectByRoleGuard aquí si quieres que el landing mande al dashboard si ya hay sesión.
+  },
+  {
+    path:'horarios',
+    component: Horarios,
+    // import('./features/landing/components/horarios/horarios').then(m => m.Horarios),
   },
   {
     path:'perfiles',
@@ -85,6 +92,10 @@ export const routes: Routes = [
     path: 'user',
     redirectTo: 'usuario',
     pathMatch: 'full'
+  },
+  {
+    path:'perfil',
+    component: UserProfile,
   },
   
   // 4. RECOMENDACIÓN: Ruta comodín para 404

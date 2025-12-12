@@ -1,0 +1,79 @@
+<section class="max-w-6xl mx-auto px-6 py-20 min-h-screen">
+  
+  <h1 class="text-4xl font-bold text-center mb-12">Horarios de Disponibilidad</h1>
+
+  <div class="grid md:grid-cols-2 gap-10">
+    
+    <div class="card bg-base-100 shadow-xl border border-base-300">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4 text-primary">
+          <i class="fa-solid fa-code"></i> Rafael Prieto
+        </h2>
+        <div class="badge badge-outline mb-4">Turno Mañana (08:00 - 12:00)</div>
+
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+              <tr>
+                <th>Día</th>
+                <th>Estado</th>
+                @if (canEdit('rafael')) { <th>Acción</th> }
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lunes</td>
+                <td><span class="badge badge-success">Disponible</span></td>
+                @if (canEdit('rafael')) { 
+                  <td><button class="btn btn-xs btn-ghost">Editar</button></td> 
+                }
+              </tr>
+              <tr>
+                <td>Martes</td>
+                <td><span class="badge badge-error">Ocupado</span></td>
+                @if (canEdit('rafael')) { <td>...</td> }
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        @if (canEdit('rafael')) {
+          <button class="btn btn-primary btn-sm mt-4 w-full">Añadir Horario</button>
+        }
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl border border-base-300">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4 text-secondary">
+          <i class="fa-solid fa-laptop-code"></i> Adrian Lazo
+        </h2>
+        <div class="badge badge-outline mb-4">Turno Tarde (14:00 - 18:00)</div>
+
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+              <tr>
+                <th>Día</th>
+                <th>Estado</th>
+                @if (canEdit('adrian')) { <th>Acción</th> }
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lunes</td>
+                <td><span class="badge badge-success">Disponible</span></td>
+                @if (canEdit('adrian')) { <td>...</td> }
+              </tr>
+              </tbody>
+          </table>
+        </div>
+
+        @if (canEdit('adrian')) {
+          <button class="btn btn-secondary btn-sm mt-4 w-full">Añadir Horario</button>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>

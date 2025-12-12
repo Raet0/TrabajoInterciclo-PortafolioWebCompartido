@@ -2,8 +2,8 @@ import { Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { ProgramadorPerfil as ProgramadorProfile } from '../../core/services/programmer.service';
-import { Auth } from '../../core/services/firebase/auth';
 import { ProgramadorService } from '../../core/services/programmer.service';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-admin-page',

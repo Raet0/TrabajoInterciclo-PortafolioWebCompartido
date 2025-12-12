@@ -2,7 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { ProgramadorProfile, Asesoria } from '../../models';
-import { Auth } from '../../core/services/firebase/auth';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-usuario-page',
